@@ -1,15 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameControl : MonoBehaviour {
 
     public static GameControl instance;
 
     public GameObject shell;
-    //public GameObject spawnPoint;
-
-    public LineRenderer lr;
 
     private void Awake()
     {
@@ -25,11 +23,18 @@ public class GameControl : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-		
+ 
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		
 	}
+
+    public void GameOver()
+    {
+
+    }
+
+
 }

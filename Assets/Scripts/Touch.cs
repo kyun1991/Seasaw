@@ -5,21 +5,31 @@ using UnityEngine.EventSystems;
 
 public class Touch : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
+    private bool dragging;
+    private List<GameObject> spawned = new List<GameObject>();
+    private int counter = 0;
+
     public void OnPointerDown(PointerEventData eventData)
     {
-        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Instantiate(GameControl.instance.shell, mousePosition, Quaternion.identity);
-        GameControl.instance.shell.GetComponent<Rigidbody2D>().isKinematic = true;
-        
-     
-        GameControl.instance.lr.enabled = true;
+        dragging = true;
+        Vector2 tempPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        spawned.Add(Instantiate(GameControl.instance.shell, tempPos, Quaternion.identity));
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        GameControl.instance.lr.enabled = false;
-        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Instantiate(GameControl.instance.shell, mousePosition, Quaternion.identity);
-        GameControl.instance.shell.GetComponent<Rigidbody2D>().isKinematic = false;
+        dragging = false;
+        spawned[counter].GetComponent<Rigidbody2D>().isKinematic = false;
+        spawned[counter].GetComponent<LineRenderer>().enabled = false;
+        counter++;
+    }
+
+    private void Update()
+    {
+        if (dragging)
+        {
+            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            spawned[counter].transform.position = new Vector2(mousePosition.x, 3f);                
+        }
     }
 }
