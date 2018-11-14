@@ -8,12 +8,13 @@ public class Touch : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     private bool dragging;
     private List<GameObject> spawned = new List<GameObject>();
     private int counter = 0;
+    private float spawnHeight = 3f;
 
     public void OnPointerDown(PointerEventData eventData)
     {
         dragging = true;
-        Vector2 tempPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        spawned.Add(Instantiate(GameControl.instance.shell, tempPos, Quaternion.identity));
+        Vector2 tempPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);                
+        spawned.Add(Instantiate(GameControl.instance.shell, new Vector2(tempPos.x, spawnHeight), Quaternion.identity));
     }
 
     public void OnPointerUp(PointerEventData eventData)
@@ -29,7 +30,7 @@ public class Touch : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         if (dragging)
         {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            spawned[counter].transform.position = new Vector2(mousePosition.x, 3f);                
+            spawned[counter].transform.position = new Vector2(mousePosition.x, spawnHeight);                
         }
     }
 }
