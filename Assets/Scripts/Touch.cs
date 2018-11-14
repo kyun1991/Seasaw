@@ -12,17 +12,25 @@ public class Touch : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        dragging = true;
-        Vector2 tempPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);                
-        spawned.Add(Instantiate(GameControl.instance.shell, new Vector2(tempPos.x, spawnHeight), Quaternion.identity));
+        if (!GameControl.instance.noMoreObjective)
+        {
+            dragging = true;
+            Vector2 tempPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            spawned.Add(Instantiate(GameControl.instance.shell, new Vector2(tempPos.x, spawnHeight), Quaternion.identity));
+            spawned[counter].GetComponent<Rigidbody2D>().isKinematic = true;
+        }        
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        dragging = false;
-        spawned[counter].GetComponent<Rigidbody2D>().isKinematic = false;
-        spawned[counter].GetComponent<LineRenderer>().enabled = false;
-        counter++;
+        if (!GameControl.instance.noMoreObjective)
+        {
+            dragging = false;
+            spawned[counter].GetComponent<Rigidbody2D>().isKinematic = false;
+            spawned[counter].GetComponent<LineRenderer>().enabled = false;
+            counter++;
+            GameControl.instance.IncrementObjective();
+        }
     }
 
     private void Update()
@@ -30,7 +38,7 @@ public class Touch : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         if (dragging)
         {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            spawned[counter].transform.position = new Vector2(mousePosition.x, spawnHeight);                
+            spawned[counter].transform.position = new Vector2(mousePosition.x, spawnHeight);
         }
     }
 }
