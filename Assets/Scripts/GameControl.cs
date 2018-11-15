@@ -10,6 +10,7 @@ public class GameControl : MonoBehaviour
 
     public GameObject shell;
     public GameObject gameOverLine;
+    public GameObject PanelGameOver;   
 
     public Text TextObjectiveNumber;
     public Text TextStage;
@@ -34,7 +35,7 @@ public class GameControl : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        TextStage.text = "Stage " + PlayerPrefs.GetInt("stage", 1);
+        LevelControl.instance.StageUpText();
         TextObjectiveNumber.text = objectiveNumber.ToString();
     }
 
@@ -58,9 +59,10 @@ public class GameControl : MonoBehaviour
 
         if (gameOver == false)
         {
-            PlayerPrefs.SetInt("stage", PlayerPrefs.GetInt("stage", 1) + 1);
+            LevelControl.instance.StageUp();
             Debug.Log("WINNER WINNER CHICKEN DINNER");
 
+            SceneManager.LoadScene(0);
             // ACTIVATE STAGE CLEAR PANEL @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
             // PRESS BUTTON TO GO ONTO NEXT STAGE ETC
         }
@@ -69,16 +71,20 @@ public class GameControl : MonoBehaviour
     public void GameOver()
     {
         gameOver = true;
-        PlayerPrefs.SetInt("stage", 1);
-        Debug.Log("GAMEOVER");
+        noMoreObjective = true;
 
-        StartCoroutine(DeathTimer(2));    
+        StartCoroutine(DeathTimer(2)); 
     }
 
     IEnumerator DeathTimer(float delay)
     {
+        LevelControl.instance.StageReset();
         yield return new WaitForSeconds(delay);
+        PanelGameOver.SetActive(true);
+    }
 
-        // ACTIVATE DIE PANEL. HOME & RESTART BUTTON ETC. @@@@@@@@@@@@@@@@@@@
+    public void ButtonPlay()
+    {
+        SceneManager.LoadScene(0);
     }
 }
