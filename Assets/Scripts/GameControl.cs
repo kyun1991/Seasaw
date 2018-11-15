@@ -10,7 +10,10 @@ public class GameControl : MonoBehaviour
 
     public GameObject shell;
     public GameObject gameOverLine;
-    public GameObject PanelGameOver;   
+    public GameObject panelGameOver;
+    public GameObject panelGameWin;
+    public GameObject canvasInGame;
+    public GameObject canvasMain;
 
     public Text TextObjectiveNumber;
     public Text TextStage;
@@ -48,7 +51,7 @@ public class GameControl : MonoBehaviour
         {
             noMoreObjective = true;
 
-            StartCoroutine(StageClear(3f));
+            StartCoroutine(StageClear(3f));     
         }
     }
 
@@ -60,11 +63,7 @@ public class GameControl : MonoBehaviour
         if (gameOver == false)
         {
             LevelControl.instance.StageUp();
-            Debug.Log("WINNER WINNER CHICKEN DINNER");
-
-            SceneManager.LoadScene(0);
-            // ACTIVATE STAGE CLEAR PANEL @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-            // PRESS BUTTON TO GO ONTO NEXT STAGE ETC
+            panelGameWin.SetActive(true);
         }
     }
 
@@ -73,18 +72,34 @@ public class GameControl : MonoBehaviour
         gameOver = true;
         noMoreObjective = true;
 
-        StartCoroutine(DeathTimer(2)); 
+        StartCoroutine(DeathTimer(1)); 
     }
 
     IEnumerator DeathTimer(float delay)
     {
         LevelControl.instance.StageReset();
         yield return new WaitForSeconds(delay);
-        PanelGameOver.SetActive(true);
+        panelGameOver.SetActive(true);
     }
 
-    public void ButtonPlay()
+    public void ButtonPlayGameOver()
     {
         SceneManager.LoadScene(0);
+    }
+
+    public void ButtonPlayGameWin()
+    {        
+        SceneManager.LoadScene(0);
+        Scene scene = SceneManager.GetActiveScene();
+        if (scene.isLoaded)
+        {
+            StartGame();
+        }
+    }
+
+    public void StartGame()
+    {
+        canvasMain.SetActive(false);
+        canvasInGame.SetActive(true);
     }
 }
