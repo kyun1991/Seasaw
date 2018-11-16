@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelControl : MonoBehaviour {
+public class LevelControl : MonoBehaviour
+{
 
     public static LevelControl instance;
 
-    private int stage=1;
+    private int stage = 1;
+    private int score = 0;
+
+    public bool stageContinued;
 
     private void Awake()
     {
@@ -21,22 +25,54 @@ public class LevelControl : MonoBehaviour {
     }
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         DontDestroyOnLoad(this);
-	}
-
-    public void StageUp()
-    {
-        stage++;     
     }
 
-    public void StageUpText()
+    // called from gamecontrol IncrementObjective function to increment stage and keep track of what stage we are at.
+    public void IncrementStage()
     {
-        GameControl.instance.TextStage.text = "Stage " + stage;
+        stage++;
+        stageContinued = true;
     }
 
+    // called from gamecontrol Start function to update our stage text when game starts.
+    public void IncrementStageText()
+    {
+        GameControl.instance.TextCurrentStage.text = "Stage " + stage;
+
+        // check to see if highstage playerpref is smaller then current stage. If it is then update highstage.
+        if (PlayerPrefs.GetInt("highstage", 1) < stage)
+        {
+            PlayerPrefs.SetInt("highstage", stage);
+        }
+    }
+
+    // called from gamecontrol Deathtimer function when gameover, to reset stage back to 1.
     public void StageReset()
     {
         stage = 1;
+        score = 0;
+        stageContinued = false;
+    }
+
+    // called from gamecontrol IncrementObjective function to increment score.
+    public void IncrementScore()
+    {
+        score += 1;
+        IncrementScoreText();
+    }
+
+    // called from gamecontrol Start function to update our score text when game starts.
+    public void IncrementScoreText()
+    { 
+        GameControl.instance.TextCurrentScore.text = "Score " + score;
+
+        // check to see if highscore playerpref is smaller then current score. If it is then update highscore.
+        if (PlayerPrefs.GetInt("highscore", 0) < score)
+        {
+            PlayerPrefs.SetInt("highscore", score);
+        }
     }
 }

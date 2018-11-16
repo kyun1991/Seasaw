@@ -10,6 +10,7 @@ public class Touch : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     private int counter = 0;
     private float spawnHeight = 3f;
 
+    // hold down mouse to spawn objecitve.
     public void OnPointerDown(PointerEventData eventData)
     {
         if (!GameControl.instance.noMoreObjective)
@@ -21,6 +22,7 @@ public class Touch : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         }        
     }
 
+    // release mouse to make objective fall and increment objective number.
     public void OnPointerUp(PointerEventData eventData)
     {
         if (!GameControl.instance.noMoreObjective)
@@ -33,8 +35,9 @@ public class Touch : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         }
     }
 
+    // if mouse is down and moving, adjust object position to mouse position
     private void Update()
-    {
+    {      
         if (dragging)
         {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
