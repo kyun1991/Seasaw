@@ -502,6 +502,8 @@ MonoBehaviour:
   canvasInGame: {fileID: 1557170332}
   canvasMain: {fileID: 26258674}
   sliderTimer: {fileID: 1560869159}
+  platform: {fileID: 1086078211}
+  platformPos: {x: 0, y: 0}
   timer: {fileID: 1560869161}
   TextObjectiveNumber: {fileID: 136507144}
   TextCurrentStage: {fileID: 792940847}
@@ -1397,7 +1399,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1086078211}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -2, z: 0}
+  m_LocalPosition: {x: 0, y: -2.5, z: 0}
   m_LocalScale: {x: 0.40627527, y: 0.032812417, z: 1}
   m_Children:
   - {fileID: 1439705283}
@@ -1438,15 +1440,15 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 0, y: -2}
+  m_ConnectedAnchor: {x: 0, y: -2.5}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
     m_MaximumMotorForce: 10000
-  m_UseLimits: 0
+  m_UseLimits: 1
   m_AngleLimits:
-    m_LowerAngle: 0
-    m_UpperAngle: 359
+    m_LowerAngle: -70
+    m_UpperAngle: 70
 --- !u!1 &1292472881
 GameObject:
   m_ObjectHideFlags: 0
