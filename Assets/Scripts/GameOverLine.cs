@@ -10,7 +10,7 @@ public class GameOverLine : MonoBehaviour
         if (collision.tag == "objects")
         {
             GameControl.instance.gameOverLine.SetActive(false);
-            GameControl.instance.GameOver();            
+            GameControl.instance.GameOver();
         }
     }
 }

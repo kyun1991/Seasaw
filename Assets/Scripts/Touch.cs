@@ -19,7 +19,7 @@ public class Touch : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             Vector2 tempPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             spawned.Add(Instantiate(GameControl.instance.shell, new Vector2(tempPos.x, spawnHeight), Quaternion.identity));
             spawned[counter].GetComponent<Rigidbody2D>().isKinematic = true;
-        }        
+        }
     }
 
     // release mouse to make objective fall and increment objective number.
@@ -37,7 +37,7 @@ public class Touch : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     // if mouse is down and moving, adjust object position to mouse position
     private void Update()
-    {      
+    {
         if (dragging)
         {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);

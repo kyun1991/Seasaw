@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class LevelControl : MonoBehaviour
 {
-
     public static LevelControl instance;
+
+    public bool stageContinued;
+    public bool boss;
 
     private int stage = 1;
     private int score = 0;
-
-    public bool stageContinued;
+    private int bossFrequency = 2;
 
     private void Awake()
     {
@@ -35,6 +36,16 @@ public class LevelControl : MonoBehaviour
     {
         stage++;
         stageContinued = true;
+
+        // boss spawns in every "bossFrequency" stages.
+        if (stage % bossFrequency == 0)
+        {
+            boss = true;
+        }
+        else
+        {
+            boss = false;
+        }
     }
 
     // called from gamecontrol Start function to update our stage text when game starts.
@@ -55,6 +66,7 @@ public class LevelControl : MonoBehaviour
         stage = 1;
         score = 0;
         stageContinued = false;
+        boss = false;
     }
 
     // called from gamecontrol IncrementObjective function to increment score.
@@ -66,7 +78,7 @@ public class LevelControl : MonoBehaviour
 
     // called from gamecontrol Start function to update our score text when game starts.
     public void IncrementScoreText()
-    { 
+    {
         GameControl.instance.TextCurrentScore.text = "Score " + score;
 
         // check to see if highscore playerpref is smaller then current score. If it is then update highscore.
@@ -74,5 +86,11 @@ public class LevelControl : MonoBehaviour
         {
             PlayerPrefs.SetInt("highscore", score);
         }
+    }
+
+    // called from gamecontrol Start function to reference what boss we are at.
+    public int BossCount()
+    {
+        return stage / bossFrequency;
     }
 }

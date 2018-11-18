@@ -22,12 +22,12 @@ public class GameControl : MonoBehaviour
     public Text TextCurrentStage;
     public Text TextCurrentScore;
     public Text TextHighStageAndScore;
-    
+
     public bool noMoreObjective;
 
-    private bool gameOver;
     private bool startTimer;
     private int objectiveNumber = 5;
+    private int bossCounter;
     private float stageClearDelay = 3f;
     private float tempTime = 0;
 
@@ -56,6 +56,33 @@ public class GameControl : MonoBehaviour
         if (LevelControl.instance.stageContinued == true)
         {
             StartGame();
+        }
+
+        // if boss stage, then initialise boss attack depending on what boss it is.
+        if (LevelControl.instance.boss == true)
+        {
+            bossCounter = LevelControl.instance.BossCount();
+
+            if (bossCounter == 1)
+            {
+                StartCoroutine(GetComponent<BossControl>().BossOne());
+            }
+            else if (bossCounter == 2)
+            {
+                StartCoroutine(GetComponent<BossControl>().BossTwo());
+            }
+            else if (bossCounter == 3)
+            {
+                StartCoroutine(GetComponent<BossControl>().BossThree());
+            }
+            else if (bossCounter == 4)
+            {
+                StartCoroutine(GetComponent<BossControl>().BossFour());
+            }
+            else if (bossCounter == 5)
+            {
+                StartCoroutine(GetComponent<BossControl>().BossFive());
+            }
         }
     }
 
@@ -99,7 +126,6 @@ public class GameControl : MonoBehaviour
     public void GameOver()
     {
         startTimer = false;
-        gameOver = true;
         noMoreObjective = true;
         StartCoroutine(DeathTimer(0.5f));
     }
