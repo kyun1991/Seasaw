@@ -495,7 +495,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9628e3d135852c3468274cda3c7d8c84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shell: {fileID: 1050858289253336, guid: 8e46cac14aa1933429074f31257e6d86, type: 2}
+  shell:
+  - {fileID: 1050858289253336, guid: 8e46cac14aa1933429074f31257e6d86, type: 2}
+  - {fileID: 1603713044886244, guid: 40f87f021e0d5d24e902368868da1d5f, type: 2}
+  - {fileID: 1410746237401220, guid: e0884359968893b45919dda1a62cd9d6, type: 2}
+  - {fileID: 1159843274854138, guid: 7b833670bb0b9564bbdf7bfc93b4faa0, type: 2}
   gameOverLine: {fileID: 606830221}
   panelGameOver: {fileID: 576360949}
   panelGameWin: {fileID: 298757553}
@@ -503,6 +507,7 @@ MonoBehaviour:
   canvasMain: {fileID: 26258674}
   sliderTimer: {fileID: 1560869159}
   platform: {fileID: 1086078211}
+  previewPos: {fileID: 1505201285}
   platformPos: {x: 0, y: 0}
   timer: {fileID: 1560869161}
   TextObjectiveNumber: {fileID: 136507144}
@@ -1857,6 +1862,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77245610cad315c419133dac44f080ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1505201285
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1505201286}
+  m_Layer: 0
+  m_Name: PreviewPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1505201286
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1505201285}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.99, y: 3.9, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1557170332
 GameObject:
   m_ObjectHideFlags: 0

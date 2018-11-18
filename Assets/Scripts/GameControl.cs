@@ -8,7 +8,7 @@ public class GameControl : MonoBehaviour
 {
     public static GameControl instance;
 
-    public GameObject shell;
+    public GameObject[] shell;
     public GameObject gameOverLine;
     public GameObject panelGameOver;
     public GameObject panelGameWin;
@@ -16,6 +16,7 @@ public class GameControl : MonoBehaviour
     public GameObject canvasMain;
     public GameObject sliderTimer;
     public GameObject platform;
+    public GameObject previewPos;
 
     public Vector2 platformPos;
     public Slider timer;
@@ -32,6 +33,8 @@ public class GameControl : MonoBehaviour
     private int bossCounter;
     private float stageClearDelay = 3f;
     private float tempTime = 0;
+
+    private List<GameObject> spawned = new List<GameObject>();
 
     private void Awake()
     {
@@ -58,6 +61,13 @@ public class GameControl : MonoBehaviour
         if (LevelControl.instance.stageContinued == true)
         {
             StartGame();
+        }
+
+        // creates a list of objectives that will be used in current stage.
+        for (int i = 0; i < objectiveNumber; i++)
+        {
+            spawned.Add(Instantiate(shell[Random.Range(0,shell.Length)], new Vector2(0, 7), Quaternion.identity));
+            spawned[i].GetComponent<Rigidbody2D>().isKinematic = true;
         }
 
         // if boss stage, then initialise boss attack depending on what boss it is.
@@ -156,5 +166,17 @@ public class GameControl : MonoBehaviour
         canvasMain.SetActive(false);
         canvasInGame.SetActive(true);
         Time.timeScale = 1;
+    }
+
+    // returns list of spawned objectives. Used in Touch script.
+    public List<GameObject> Spawned()
+    {
+        return spawned;
+    }
+
+    // returns objective number. Used in Touch script.
+    public int ObjectiveNumber()
+    {
+        return objectiveNumber;
     }
 }
