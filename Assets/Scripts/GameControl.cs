@@ -16,7 +16,6 @@ public class GameControl : MonoBehaviour
     public GameObject canvasMain;
     public GameObject sliderTimer;
     public GameObject platform;
-    public GameObject previewPos;
 
     public Vector2 platformPos;
     public Slider timer;
@@ -55,7 +54,6 @@ public class GameControl : MonoBehaviour
         LevelControl.instance.IncrementScoreText();
         TextObjectiveNumber.text = objectiveNumber.ToString();
         TextHighStageAndScore.text = "Stage " + PlayerPrefs.GetInt("highstage", 1) + " , " + PlayerPrefs.GetInt("highscore", 0);
-        Time.timeScale = 0;
 
         // if level is continued, start game without showing main menu.
         if (LevelControl.instance.stageContinued == true)
@@ -113,8 +111,7 @@ public class GameControl : MonoBehaviour
             // if timer reaches zero, activate gamewin panel to progress onto next stage.
             if (timer.value <= 0)
             {
-                gameOverLine.SetActive(false);
-                Time.timeScale = 0.4f;
+                gameOverLine.SetActive(false);             
                 sliderTimer.SetActive(false);
                 panelGameWin.SetActive(true);
             }
@@ -165,18 +162,11 @@ public class GameControl : MonoBehaviour
     {
         canvasMain.SetActive(false);
         canvasInGame.SetActive(true);
-        Time.timeScale = 1;
     }
 
     // returns list of spawned objectives. Used in Touch script.
     public List<GameObject> Spawned()
     {
         return spawned;
-    }
-
-    // returns objective number. Used in Touch script.
-    public int ObjectiveNumber()
-    {
-        return objectiveNumber;
     }
 }

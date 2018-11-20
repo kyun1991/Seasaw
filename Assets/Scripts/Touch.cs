@@ -8,30 +8,30 @@ public class Touch : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     private bool dragging;
     private List<GameObject> spawned = new List<GameObject>();
     private int counter = 0;
-    private int objectiveNumber;
     private float spawnHeight = 3f;
 
-    // initialise list and objective number.
+    private int tracker = 0;
+    private float clickDelay=0.3f;
+
+    // initialise list.
     private void Start()
     {
         spawned = GameControl.instance.Spawned();
-        objectiveNumber = GameControl.instance.ObjectiveNumber();
     }
 
     // hold down mouse to spawn objecitve.
     public void OnPointerDown(PointerEventData eventData)
     {
-        if (!GameControl.instance.noMoreObjective)
+        if (tracker == 0)
         {
-            dragging = true;
-            Vector2 tempPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);          
-            spawned[counter].transform.position = new Vector2(tempPos.x, spawnHeight);
-            spawned[counter].GetComponent<LineRenderer>().enabled = true;
-
-            // positions the next objective to be spawned on top of PreviewPos gameobject.
-            if (counter < (objectiveNumber-1))
+            if (!GameControl.instance.noMoreObjective)
             {
-                spawned[counter + 1].transform.position = GameControl.instance.previewPos.transform.position;
+                Time.timeScale = 0.1f;
+                dragging = true;
+                Vector2 tempPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                spawned[counter].transform.position = new Vector2(tempPos.x, spawnHeight);
+                spawned[counter].GetComponent<LineRenderer>().enabled = true;
+                tracker++;
             }
         }
     }
@@ -39,14 +39,20 @@ public class Touch : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     // release mouse to make objective fall and increment objective number.
     public void OnPointerUp(PointerEventData eventData)
     {
-        if (!GameControl.instance.noMoreObjective)
+        if (tracker == 1)
         {
-            dragging = false;
-            spawned[counter].GetComponent<Rigidbody2D>().isKinematic = false;
-            spawned[counter].GetComponent<LineRenderer>().enabled = false;
-            spawned[counter].GetComponent<PolygonCollider2D>().isTrigger = false;
-            counter++;
-            GameControl.instance.IncrementObjective();
+            if (!GameControl.instance.noMoreObjective)
+            {
+                Time.timeScale = 1f;
+                dragging = false;
+                spawned[counter].GetComponent<Rigidbody2D>().isKinematic = false;
+                spawned[counter].GetComponent<LineRenderer>().enabled = false;
+                spawned[counter].GetComponent<PolygonCollider2D>().isTrigger = false;
+                counter++;
+                tracker++;
+                GameControl.instance.IncrementObjective();
+                StartCoroutine(ClickDelay(clickDelay));
+            }
         }
     }
 
@@ -58,5 +64,11 @@ public class Touch : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             spawned[counter].transform.position = new Vector2(mousePosition.x, spawnHeight);
         }
+    }
+
+    // used to delay time between clicks.
+    IEnumerator ClickDelay(float delay){
+        yield return new WaitForSeconds(delay);
+        tracker = 0;
     }
 }
