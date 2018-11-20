@@ -44,7 +44,7 @@ public class Touch : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             dragging = false;
             spawned[counter].GetComponent<Rigidbody2D>().isKinematic = false;
             spawned[counter].GetComponent<LineRenderer>().enabled = false;
-            spawned[counter].GetComponent<BoxCollider2D>().isTrigger = false;
+            spawned[counter].GetComponent<PolygonCollider2D>().isTrigger = false;
             counter++;
             GameControl.instance.IncrementObjective();
         }
