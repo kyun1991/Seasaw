@@ -4,8 +4,13 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - platform
-  - objects
+  - fishfish
+  - fishjelly
+  - fishlarge
+  - fishlong
+  - fishpuff
+  - fishtriangle
+  - fishwhale
   layers:
   - Default
   - TransparentFX

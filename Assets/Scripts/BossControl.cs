@@ -25,7 +25,7 @@ public class BossControl : MonoBehaviour
     {
         while (attack == true)
         {
-            yield return StartCoroutine(BossAttack(attack, delay1, delay2));
+            yield return StartCoroutine(BossAttackFromLeft(attack, delay1, delay2));
         }
     }
 
@@ -61,6 +61,7 @@ public class BossControl : MonoBehaviour
     {
         bossObjects.Add(Instantiate(bossStar, new Vector2(Random.Range(-2.5f, 2.5f), 5.5f), Quaternion.identity));
         bossObjects[counter].GetComponent<Rigidbody2D>().isKinematic = true;
+        bossObjects[counter].GetComponent<LineRenderer>().SetPosition(1, new Vector3(0, -6, 0));
         yield return new WaitForSeconds(delay1);
         bossObjects[counter].GetComponent<Rigidbody2D>().isKinematic = false;
         bossObjects[counter].GetComponent<BoxCollider2D>().isTrigger = false;
@@ -69,4 +70,16 @@ public class BossControl : MonoBehaviour
         yield return new WaitForSeconds(delay2);
     }
 
+    IEnumerator BossAttackFromLeft(bool attack, float delay1, float delay2)
+    {
+        bossObjects.Add(Instantiate(bossStar, new Vector2(-4f, Random.Range(0, 2)), Quaternion.identity));
+        bossObjects[counter].GetComponent<Rigidbody2D>().isKinematic = true;
+        bossObjects[counter].GetComponent<LineRenderer>().SetPosition(1, new Vector3(6, 0, 0));
+        yield return new WaitForSeconds(delay1);
+        bossObjects[counter].GetComponent<Rigidbody2D>().velocity = new Vector2(7, 0);
+        bossObjects[counter].GetComponent<BoxCollider2D>().isTrigger = false;
+        bossObjects[counter].GetComponent<LineRenderer>().enabled = false;
+        counter++;
+        yield return new WaitForSeconds(delay2);
+    }
 }

@@ -7,7 +7,7 @@ public class GameOverLine : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         // checking to see if objects have fallen into water.
-        if (collision.tag == "objects")
+        if (collision.tag.Contains("fish"))
         {
             GameControl.instance.gameOverLine.SetActive(false);
             GameControl.instance.GameOver();
