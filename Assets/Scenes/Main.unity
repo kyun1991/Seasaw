@@ -394,6 +394,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9628e3d135852c3468274cda3c7d8c84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  touch: {fileID: 199716350}
   fish:
   - {fileID: 1268136358480780, guid: 881bb9549ab4b05469fbc4b2c161f6aa, type: 2}
   - {fileID: 1302267731871158, guid: f3706fb4ba749e947a6e02d8d8f6419d, type: 2}
@@ -404,6 +405,12 @@ MonoBehaviour:
   - {fileID: 1750136286218820, guid: 3c3f5fd14d6eb174a953966d34ca7f00, type: 2}
   preview:
   - {fileID: 662748196}
+  - {fileID: 1835232954}
+  - {fileID: 1885715622}
+  - {fileID: 1402406308}
+  - {fileID: 562743253}
+  - {fileID: 921010135}
+  - {fileID: 205906562}
   gameOverLine: {fileID: 606830221}
   panelGameOver: {fileID: 576360949}
   panelGameWin: {fileID: 298757553}

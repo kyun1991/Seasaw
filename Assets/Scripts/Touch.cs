@@ -9,39 +9,12 @@ public class Touch : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     private List<GameObject> spawned = new List<GameObject>();
     private int counter = 0;
     private int tracker = 0;
-    private int activePreview;
-    private float clickDelay=0.25f;
-
-    private List<string> previewString = new List<string>();
+    private float clickDelay = 0.25f;
 
     // initialise list.
     private void Start()
     {
         spawned = GameControl.instance.Spawned();
-        
-        // initialise list of strings to store tags in preview array.
-        for (int i = 0; i < GameControl.instance.preview.Length; i++)
-        {
-            previewString.Add(GameControl.instance.preview[i].tag);
-        }
-
-        // check if next object has same tag as any object from preview array. If it matches, assign that index to activePreview.
-        for (int i = 0; i < spawned.Count; i++)
-        {
-            if (spawned[1].tag == previewString[i])
-            {
-                activePreview = i;
-            }
-        }
-
-        for (int i = 0; i < GameControl.instance.preview.Length; i++)
-        {
-            if (i != activePreview)
-            {
-
-            }
-        }
-       
     }
 
     // hold down mouse to spawn objecitve.
@@ -51,7 +24,7 @@ public class Touch : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         {
             if (!GameControl.instance.noMoreObjective)
             {
-                Time.timeScale = 0.6f;
+                Time.timeScale = 0.7f;
                 dragging = true;
                 Vector2 tempPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 spawned[counter].transform.position = new Vector2(tempPos.x, GameControl.instance.spawnHeight);
@@ -72,7 +45,7 @@ public class Touch : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                 dragging = false;
                 spawned[counter].GetComponent<Rigidbody2D>().isKinematic = false;
                 spawned[counter].GetComponent<LineRenderer>().enabled = false;
-                spawned[counter].GetComponent<PolygonCollider2D>().isTrigger = false;             
+                spawned[counter].GetComponent<PolygonCollider2D>().isTrigger = false;
                 tracker++;
                 GameControl.instance.IncrementObjective();
                 StartCoroutine(ClickDelay(clickDelay));
@@ -91,7 +64,8 @@ public class Touch : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     }
 
     // used to delay time between clicks and position next object in middle of screen.
-    IEnumerator ClickDelay(float delay){
+    IEnumerator ClickDelay(float delay)
+    {
         yield return new WaitForSeconds(delay);
         tracker = 0;
         counter++;
@@ -99,6 +73,31 @@ public class Touch : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         {
             spawned[counter].transform.position = new Vector2(0, GameControl.instance.spawnHeight);
         }
+        PreviewInactive();
+        if ((counter + 1) < spawned.Count)
+        {
+            PreviewActive(counter + 1);
+        }
+    }
 
+    // activates preview for next object.
+    public void PreviewActive(int nextObject)
+    {
+        for (int i = 0; i < GameControl.instance.preview.Length; i++)
+        {
+            if (spawned[nextObject].tag == GameControl.instance.preview[i].tag)
+            {
+                GameControl.instance.preview[i].SetActive(true);
+            }
+        }
+    }
+
+    // inactivates all previews.
+    public void PreviewInactive()
+    {
+        for (int i = 0; i < GameControl.instance.preview.Length; i++)
+        {
+            GameControl.instance.preview[i].SetActive(false);
+        }
     }
 }
