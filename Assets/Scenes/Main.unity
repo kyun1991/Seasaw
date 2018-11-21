@@ -1782,7 +1782,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: ae358b532faeadd4eae949686d908729, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -2465,6 +2465,53 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Slider+SliderEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!1001 &1622382441
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4432590824363604, guid: 969ce13d2bafe7b4ba10e054826e8fd9, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 4432590824363604, guid: 969ce13d2bafe7b4ba10e054826e8fd9, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -5.61
+      objectReference: {fileID: 0}
+    - target: {fileID: 4432590824363604, guid: 969ce13d2bafe7b4ba10e054826e8fd9, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4432590824363604, guid: 969ce13d2bafe7b4ba10e054826e8fd9, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4432590824363604, guid: 969ce13d2bafe7b4ba10e054826e8fd9, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4432590824363604, guid: 969ce13d2bafe7b4ba10e054826e8fd9, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4432590824363604, guid: 969ce13d2bafe7b4ba10e054826e8fd9, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4432590824363604, guid: 969ce13d2bafe7b4ba10e054826e8fd9, type: 2}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 33665916744048792, guid: 969ce13d2bafe7b4ba10e054826e8fd9,
+        type: 2}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 969ce13d2bafe7b4ba10e054826e8fd9, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1 &1624526846
 GameObject:
   m_ObjectHideFlags: 0
