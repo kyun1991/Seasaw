@@ -8,8 +8,6 @@ public class GameControl : MonoBehaviour
 {
     public static GameControl instance;
 
-    public Touch touch;
-
     public GameObject[] fish;
     public GameObject[] preview;
     public GameObject gameOverLine;
@@ -177,7 +175,14 @@ public class GameControl : MonoBehaviour
         canvasMain.SetActive(false);
         canvasInGame.SetActive(true);
         spawned[0].transform.position = new Vector2(0, spawnHeight);
-        touch.PreviewActive(1);
+        for (int i = 0; i < preview.Length; i++)
+        {
+            if (spawned[1].tag == preview[i].tag)
+            {
+                preview[i].SetActive(true);
+            }
+        }
+
     }
 
     // returns list of spawned objectives. Used in Touch script.

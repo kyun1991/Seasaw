@@ -54,11 +54,11 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 0.05
+  m_Mass: 0.1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 3
-  m_Material: {fileID: 6200000, guid: ae358b532faeadd4eae949686d908729, type: 2}
+  m_GravityScale: 2.5
+  m_Material: {fileID: 6200000, guid: 89f9de65341664642b8fa28657a87e68, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -130,10 +130,10 @@ LineRenderer:
   m_SortingOrder: 0
   m_Positions:
   - {x: 0, y: 0, z: 0}
-  - {x: 0, y: -7, z: 1}
+  - {x: 0, y: -12, z: 1}
   m_Parameters:
     serializedVersion: 2
-    widthMultiplier: 0.4
+    widthMultiplier: 1.8065991
     widthCurve:
       serializedVersion: 2
       m_Curve:
