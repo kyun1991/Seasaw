@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 50112074213978212}
   - component: {fileID: 60717028630882398}
   - component: {fileID: 120461208170519766}
+  - component: {fileID: 114150071188113238}
   m_Layer: 0
   m_Name: fishjelly
   m_TagString: fishjelly
@@ -91,6 +92,17 @@ PolygonCollider2D:
       - {x: 1.0544286, y: -2.0613189}
       - {x: 1.0550756, y: 2.049202}
       - {x: -1.0665119, y: 2.0583475}
+--- !u!114 &114150071188113238
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1302267731871158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bd814a0f74340d40ba2a12cedf66f9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!120 &120461208170519766
 LineRenderer:
   m_ObjectHideFlags: 1

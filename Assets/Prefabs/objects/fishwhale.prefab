@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 50712259222450966}
   - component: {fileID: 60421641560760636}
   - component: {fileID: 120191774071391292}
+  - component: {fileID: 114580721585862760}
   m_Layer: 0
   m_Name: fishwhale
   m_TagString: fishwhale
@@ -93,6 +94,17 @@ PolygonCollider2D:
       - {x: -2.9915276, y: 1.978267}
       - {x: -2.9818819, y: -2.0217333}
       - {x: 3.0209587, y: -2.001498}
+--- !u!114 &114580721585862760
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1750136286218820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bd814a0f74340d40ba2a12cedf66f9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!120 &120191774071391292
 LineRenderer:
   m_ObjectHideFlags: 1

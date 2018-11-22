@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 50820461846966798}
   - component: {fileID: 60075170037111896}
   - component: {fileID: 120618772280274188}
+  - component: {fileID: 114009960447781844}
   m_Layer: 0
   m_Name: fishlarge
   m_TagString: fishlarge
@@ -93,6 +94,17 @@ PolygonCollider2D:
       - {x: 2.0080056, y: 2.0194848}
       - {x: -2.0174546, y: 2.01397}
       - {x: -2.016127, y: -0.0071905055}
+--- !u!114 &114009960447781844
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1882324050651682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bd814a0f74340d40ba2a12cedf66f9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!120 &120618772280274188
 LineRenderer:
   m_ObjectHideFlags: 1

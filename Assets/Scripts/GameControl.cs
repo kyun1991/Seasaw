@@ -25,6 +25,10 @@ public class GameControl : MonoBehaviour
     public GameObject imageStageClear;
     public GameObject imageStageGreat;
 
+    //Audio objects
+    public AudioSource Splash;
+    public AudioSource Drop;
+
     // game variety variables
     public Vector2 platformPos;
     public float platformMass;
