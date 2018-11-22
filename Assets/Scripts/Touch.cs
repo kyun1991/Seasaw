@@ -8,7 +8,7 @@ public class Touch : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     private bool dragging;
     private List<GameObject> spawned = new List<GameObject>();
     private int counter = 0;
-    private int tracker = 0;
+    // private int tracker = 0;
     private float clickDelay = 0.25f;
 
     // initialise list.
@@ -20,7 +20,7 @@ public class Touch : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     // hold down mouse to spawn objecitve.
     public void OnPointerDown(PointerEventData eventData)
     {
-        if (tracker == 0)
+        if (GameControl.instance.tracker == 0)
         {
             if (!GameControl.instance.noMoreObjective)
             {
@@ -29,7 +29,7 @@ public class Touch : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                 Vector2 tempPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 spawned[counter].transform.position = new Vector2(tempPos.x, GameControl.instance.spawnHeight);
                 spawned[counter].GetComponent<LineRenderer>().enabled = true;
-                tracker++;
+                GameControl.instance.tracker++;
             }
         }
     }
@@ -37,7 +37,7 @@ public class Touch : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     // release mouse to make objective fall and increment objective number.
     public void OnPointerUp(PointerEventData eventData)
     {
-        if (tracker == 1)
+        if (GameControl.instance.tracker == 1)
         {
             if (!GameControl.instance.noMoreObjective)
             {
@@ -46,7 +46,7 @@ public class Touch : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                 spawned[counter].GetComponent<Rigidbody2D>().isKinematic = false;
                 spawned[counter].GetComponent<LineRenderer>().enabled = false;
                 spawned[counter].GetComponent<PolygonCollider2D>().isTrigger = false;
-                tracker++;
+                GameControl.instance.tracker++;
                 GameControl.instance.IncrementObjective();
                 StartCoroutine(ClickDelay(clickDelay));
             }
@@ -67,7 +67,7 @@ public class Touch : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     IEnumerator ClickDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-        tracker = 0;
+        GameControl.instance.tracker = 0;
         counter++;
         if (counter < spawned.Count)
         {

@@ -20,6 +20,7 @@ public class GameControl : MonoBehaviour
     public GameObject canvasMain;
     public GameObject sliderTimer;
     public GameObject platform;
+    public GameObject bossStageAnimation;
 
     // game variety variables
     public Vector2 platformPos;
@@ -36,9 +37,12 @@ public class GameControl : MonoBehaviour
 
     public float spawnHeight;
 
-    public bool noMoreObjective;
+    public int tracker = 10;
 
-    private bool startTimer;   
+    public bool noMoreObjective;
+    public bool startSpawning;
+
+    private bool startTimer;
     private int bossCounter;
     private float stageClearDelay = 2.5f;
     private float tempTime = 0;
@@ -65,14 +69,21 @@ public class GameControl : MonoBehaviour
 
         objectiveNumber = LevelControl.instance.StageReturn();
         StageControl(objectiveNumber);
-        int whatStage = LevelControl.instance.StageReturn()%LevelControl.instance.BossFreqReturn();
+        int whatStage = LevelControl.instance.StageReturn() % LevelControl.instance.BossFreqReturn();
+
+        if (whatStage != 0)
+        {
+            startSpawning = true;
+        }
+
         for (int i = 0; i < whatStage; i++)
         {
             stageIndicator[i].color = new Color32(226, 87, 76, 255);
         }
+
         LevelControl.instance.IncrementStageText();
         LevelControl.instance.IncrementScoreText();
-        
+
         TextHighStageAndScore.text = "Stage " + PlayerPrefs.GetInt("highstage", 1) + " , " + PlayerPrefs.GetInt("highscore", 0);
 
         // creates a list of objectives that will be used in current stage.
@@ -80,7 +91,7 @@ public class GameControl : MonoBehaviour
         {
             spawned.Add(Instantiate(fish[Random.Range(0, fish.Length)], new Vector2(0, 10), Quaternion.identity));
             spawned[i].GetComponent<Rigidbody2D>().isKinematic = true;
-        }    
+        }
 
         // if level is continued, start game without showing main menu.
         if (LevelControl.instance.stageContinued == true)
@@ -92,32 +103,15 @@ public class GameControl : MonoBehaviour
         // if boss stage, then initialise boss attack depending on what boss it is.
         if (LevelControl.instance.boss == true)
         {
+            GameObject temp = Instantiate(bossStageAnimation, new Vector2(0,0.5f), Quaternion.identity);
+            Destroy(temp, 1.5f);
+
             for (int i = 0; i < stageIndicator.Length; i++)
             {
                 stageIndicator[i].color = new Color32(226, 87, 76, 255);
-            }            
-            bossCounter = LevelControl.instance.StageReturn()/ LevelControl.instance.BossFreqReturn();
+            }
+            StartCoroutine(StartBossAttack(1.5f));
 
-            if (bossCounter == 1)
-            {
-                StartCoroutine(GetComponent<BossControl>().BossOne());
-            }
-            else if (bossCounter == 2)
-            {
-                StartCoroutine(GetComponent<BossControl>().BossTwo());
-            }
-            else if (bossCounter == 3)
-            {
-                StartCoroutine(GetComponent<BossControl>().BossThree());
-            }
-            else if (bossCounter == 4)
-            {
-                StartCoroutine(GetComponent<BossControl>().BossFour());
-            }
-            else if (bossCounter == 5)
-            {
-                StartCoroutine(GetComponent<BossControl>().BossFive());
-            }
         }
 
         // adjust platform anchor and objective text to new position.
@@ -136,7 +130,7 @@ public class GameControl : MonoBehaviour
             // if timer reaches zero, activate gamewin panel to progress onto next stage.
             if (timer.value <= 0)
             {
-                gameOverLine.SetActive(false);             
+                gameOverLine.SetActive(false);
                 sliderTimer.SetActive(false);
                 panelGameWin.SetActive(true);
             }
@@ -187,16 +181,8 @@ public class GameControl : MonoBehaviour
     {
         canvasMain.SetActive(false);
         canvasInGame.SetActive(true);
-        spawned[0].transform.position = new Vector2(0, spawnHeight);
-        for (int i = 0; i < preview.Length; i++)
-        {
-            if (spawned[1].tag == preview[i].tag)
-            {
-                preview[i].SetActive(true);
-            }
-        }
-        TextObjectiveNumber.text = objectiveNumber.ToString();
-        stageIndicatorGO.SetActive(true);
+
+        CheckStartSpawning();
     }
 
     // returns list of spawned objectives. Used in Touch script.
@@ -208,9 +194,9 @@ public class GameControl : MonoBehaviour
     // changing difficulty of stages.
     public void StageControl(int stage)
     {
-       // objectiveNumber = stage + 4;
+        // objectiveNumber = stage + 4;
 
-        if (stage== 1)
+        if (stage == 1)
         {
             objectiveNumber = 3;
         }
@@ -218,6 +204,58 @@ public class GameControl : MonoBehaviour
         if (stage < 5)
         {
             objectiveNumber = 3;
+        }
+    }
+
+    // brief delay to show boss stage animation before starting boss attack.
+    IEnumerator StartBossAttack(float delay)
+    {
+        startSpawning = true;
+
+        yield return new WaitForSeconds(delay);
+        CheckStartSpawning();
+        bossCounter = LevelControl.instance.StageReturn() / LevelControl.instance.BossFreqReturn();
+
+        if (bossCounter == 1)
+        {
+            yield return StartCoroutine(GetComponent<BossControl>().BossOne());
+        }
+        else if (bossCounter == 2)
+        {
+            yield return StartCoroutine(GetComponent<BossControl>().BossTwo());
+        }
+        else if (bossCounter == 3)
+        {
+            yield return StartCoroutine(GetComponent<BossControl>().BossThree());
+        }
+        else if (bossCounter == 4)
+        {
+            yield return StartCoroutine(GetComponent<BossControl>().BossFour());
+        }
+        else if (bossCounter == 5)
+        {
+            yield return StartCoroutine(GetComponent<BossControl>().BossFive());
+        }
+
+    }
+
+    // if startSpawning is true, sets first object and first preview object into position.
+    public void CheckStartSpawning()
+    {
+        if (startSpawning == true)
+        {
+            tracker = 0;
+
+            spawned[0].transform.position = new Vector2(0, spawnHeight);
+            for (int i = 0; i < preview.Length; i++)
+            {
+                if (spawned[1].tag == preview[i].tag)
+                {
+                    preview[i].SetActive(true);
+                }
+            }
+            TextObjectiveNumber.text = objectiveNumber.ToString();
+            stageIndicatorGO.SetActive(true);
         }
     }
 }
