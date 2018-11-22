@@ -24,6 +24,8 @@ public class GameControl : MonoBehaviour
     public GameObject bossStageAnimation;
     public GameObject imageStageClear;
     public GameObject imageStageGreat;
+    public GameObject buttonUnmute;
+    public GameObject buttonMute;
 
     //Audio objects
     public AudioSource Splash;
@@ -77,6 +79,15 @@ public class GameControl : MonoBehaviour
     {
         platform.GetComponent<Rigidbody2D>().mass = platformMass;
         platform.GetComponent<Rigidbody2D>().angularDrag = platformAngularDrag;
+
+        if (PlayerPrefs.GetInt("sound", 1) == 1)
+        {
+            UnMute();
+        }
+        else
+        {
+            Mute();
+        }
 
         currentStage = LevelControl.instance.StageReturn();
         StageControl(currentStage);
@@ -352,5 +363,25 @@ public class GameControl : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         SceneManager.LoadScene(0);
+    }
+
+    // Mutes audio source
+    public void Mute()
+    {
+        Splash.volume = 0;
+        Drop.volume = 0;
+        buttonMute.SetActive(false);
+        buttonUnmute.SetActive(true);
+        PlayerPrefs.SetInt("sound",0);
+    }
+
+    // UnMutes audio source
+    public void UnMute()
+    {
+        Splash.volume = 0.7f;
+        Drop.volume = 0.5f;
+        buttonMute.SetActive(true);
+        buttonUnmute.SetActive(false);
+        PlayerPrefs.SetInt("sound", 1);
     }
 }
