@@ -80,7 +80,7 @@ public class BossControl : MonoBehaviour
         bossObjects[counter].GetComponent<LineRenderer>().SetPosition(1, new Vector3(25, 0.25f, 0));
         yield return new WaitForSeconds(delay1);
         bossObjects[counter].GetComponent<Rigidbody2D>().velocity = new Vector2(7, 0);
-        bossObjects[counter].GetComponent<BoxCollider2D>().isTrigger = false;
+        bossObjects[counter].GetComponent<CircleCollider2D>().isTrigger = false;
         bossObjects[counter].GetComponent<LineRenderer>().enabled = false;
         counter++;
         yield return new WaitForSeconds(delay2);
@@ -94,7 +94,7 @@ public class BossControl : MonoBehaviour
         bossObjects[counter].GetComponent<LineRenderer>().SetPosition(1, new Vector3(-25, 0.25f, 0));
         yield return new WaitForSeconds(delay1);
         bossObjects[counter].GetComponent<Rigidbody2D>().velocity = new Vector2(7, 0);
-        bossObjects[counter].GetComponent<BoxCollider2D>().isTrigger = false;
+        bossObjects[counter].GetComponent<CircleCollider2D>().isTrigger = false;
         bossObjects[counter].GetComponent<LineRenderer>().enabled = false;
         counter++;
         yield return new WaitForSeconds(delay2);

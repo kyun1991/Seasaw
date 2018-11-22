@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212529340077568126}
   - component: {fileID: 50685972784966008}
   - component: {fileID: 120049253623471774}
-  - component: {fileID: 61422360256178922}
+  - component: {fileID: 58597208927361578}
   m_Layer: 0
   m_Name: bossBirdToLeft
   m_TagString: Untagged
@@ -63,8 +63,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!61 &61422360256178922
-BoxCollider2D:
+--- !u!58 &58597208927361578
+CircleCollider2D:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -72,22 +72,12 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.09189093, y: 0.21441269}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.63, y: 2.44}
-    newSize: {x: 2.63, y: 2.44}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
+  m_Offset: {x: 0.12, y: 0.22}
   serializedVersion: 2
-  m_Size: {x: 2.0786545, y: 2.0111747}
-  m_EdgeRadius: 0
+  m_Radius: 1.0373333
 --- !u!120 &120049253623471774
 LineRenderer:
   m_ObjectHideFlags: 1

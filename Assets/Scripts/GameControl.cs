@@ -44,6 +44,7 @@ public class GameControl : MonoBehaviour
 
     private bool startTimer;
     private int bossCounter;
+    private int currentStage;
     private float stageClearDelay = 2.5f;
     private float tempTime = 0;
 
@@ -67,8 +68,8 @@ public class GameControl : MonoBehaviour
         platform.GetComponent<Rigidbody2D>().mass = platformMass;
         platform.GetComponent<Rigidbody2D>().angularDrag = platformAngularDrag;
 
-        objectiveNumber = LevelControl.instance.StageReturn();
-        StageControl(objectiveNumber);
+        currentStage = LevelControl.instance.StageReturn();
+        StageControl(currentStage);
         int whatStage = LevelControl.instance.StageReturn() % LevelControl.instance.BossFreqReturn();
 
         if (whatStage != 0)
@@ -86,34 +87,55 @@ public class GameControl : MonoBehaviour
 
         TextHighStageAndScore.text = "Stage " + PlayerPrefs.GetInt("highstage", 1) + " , " + PlayerPrefs.GetInt("highscore", 0);
 
+        // if boss stage, then initialise boss attack depending on what boss it is.
+        if (LevelControl.instance.boss == true)
+        {
+            GameObject temp = Instantiate(bossStageAnimation, new Vector2(0, 0.5f), Quaternion.identity);
+            Destroy(temp, 2f);
+
+            for (int i = 0; i < stageIndicator.Length; i++)
+            {
+                stageIndicator[i].color = new Color32(226, 87, 76, 255);
+            }
+
+            // depending on which boss it is, objective numbers differ.
+            bossCounter = LevelControl.instance.StageReturn() / LevelControl.instance.BossFreqReturn();
+            if (bossCounter == 1)
+            {
+                objectiveNumber = 5;
+            }
+            else if (bossCounter == 2)
+            {
+                objectiveNumber = 5;
+            }
+            else if (bossCounter == 3)
+            {
+                objectiveNumber = 5;
+            }
+            else if (bossCounter == 4)
+            {
+                objectiveNumber = 5;
+            }
+            else if (bossCounter == 5)
+            {
+                objectiveNumber = 5;
+            }
+            else { objectiveNumber = 5; }
+        
+
+            StartCoroutine(StartBossAttack(1.5f,bossCounter));
+        }
         // creates a list of objectives that will be used in current stage.
         for (int i = 0; i < objectiveNumber; i++)
         {
             spawned.Add(Instantiate(fish[Random.Range(0, fish.Length)], new Vector2(0, 10), Quaternion.identity));
             spawned[i].GetComponent<Rigidbody2D>().isKinematic = true;
         }
-
         // if level is continued, start game without showing main menu.
         if (LevelControl.instance.stageContinued == true)
         {
             StartGame();
         }
-
-
-        // if boss stage, then initialise boss attack depending on what boss it is.
-        if (LevelControl.instance.boss == true)
-        {
-            GameObject temp = Instantiate(bossStageAnimation, new Vector2(0,0.5f), Quaternion.identity);
-            Destroy(temp, 1.5f);
-
-            for (int i = 0; i < stageIndicator.Length; i++)
-            {
-                stageIndicator[i].color = new Color32(226, 87, 76, 255);
-            }
-            StartCoroutine(StartBossAttack(1.5f));
-
-        }
-
         // adjust platform anchor and objective text to new position.
         platform.GetComponent<HingeJoint2D>().anchor = platformPos;
         platform.GetComponentInChildren<RectTransform>().localPosition = platformPos;
@@ -181,7 +203,8 @@ public class GameControl : MonoBehaviour
     {
         canvasMain.SetActive(false);
         canvasInGame.SetActive(true);
-
+        TextObjectiveNumber.text = objectiveNumber.ToString();
+        stageIndicatorGO.SetActive(true);
         CheckStartSpawning();
     }
 
@@ -194,27 +217,32 @@ public class GameControl : MonoBehaviour
     // changing difficulty of stages.
     public void StageControl(int stage)
     {
-        // objectiveNumber = stage + 4;
-
-        if (stage == 1)
+        if (stage < 4)
         {
-            objectiveNumber = 3;
+            objectiveNumber = 4;
         }
-
-        if (stage < 5)
+        if (4 < stage && stage < 8)
         {
-            objectiveNumber = 3;
+            objectiveNumber = 6;
+        }
+        if (8 < stage && stage < 12)
+        {
+            objectiveNumber = 8;
+        }
+        if (12 < stage && stage % LevelControl.instance.BossFreqReturn() != 0)
+        {
+            objectiveNumber = 10;
         }
     }
 
     // brief delay to show boss stage animation before starting boss attack.
-    IEnumerator StartBossAttack(float delay)
+    IEnumerator StartBossAttack(float delay, int bossCounter)
     {
-        startSpawning = true;
+
 
         yield return new WaitForSeconds(delay);
+        startSpawning = true;
         CheckStartSpawning();
-        bossCounter = LevelControl.instance.StageReturn() / LevelControl.instance.BossFreqReturn();
 
         if (bossCounter == 1)
         {
@@ -254,8 +282,6 @@ public class GameControl : MonoBehaviour
                     preview[i].SetActive(true);
                 }
             }
-            TextObjectiveNumber.text = objectiveNumber.ToString();
-            stageIndicatorGO.SetActive(true);
         }
     }
 }
