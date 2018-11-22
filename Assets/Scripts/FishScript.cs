@@ -14,4 +14,12 @@ public class FishScript : MonoBehaviour {
             Dropped = true;
         }
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag == "Sea")
+        {
+            GameControl.instance.Splash.Play();
+        }
+    }
 }

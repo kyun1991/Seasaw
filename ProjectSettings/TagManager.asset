@@ -11,6 +11,7 @@ TagManager:
   - fishpuff
   - fishtriangle
   - fishwhale
+  - Sea
   layers:
   - Default
   - TransparentFX
