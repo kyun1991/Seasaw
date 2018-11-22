@@ -5,7 +5,9 @@ using UnityEngine;
 public class BossControl : MonoBehaviour
 {
 
-    public GameObject bossStar;
+    public GameObject bossStone;
+    public GameObject bossBirdToLeft;
+    public GameObject bossBirdToRight;
 
     private List<GameObject> bossObjects = new List<GameObject>();
 
@@ -59,9 +61,9 @@ public class BossControl : MonoBehaviour
     // initialise and drops boss objects after certain delay.
     IEnumerator BossAttack(bool attack, float delay1, float delay2)
     {
-        bossObjects.Add(Instantiate(bossStar, new Vector2(Random.Range(-2.5f, 2.5f), 5.5f), Quaternion.identity));
+        bossObjects.Add(Instantiate(bossStone, new Vector2(Random.Range(-2.5f, 2.5f), 7f), Quaternion.identity));
         bossObjects[counter].GetComponent<Rigidbody2D>().isKinematic = true;
-        bossObjects[counter].GetComponent<LineRenderer>().SetPosition(1, new Vector3(0, -6, 0));
+        bossObjects[counter].GetComponent<LineRenderer>().SetPosition(1, new Vector3(0, -25, 0));
         yield return new WaitForSeconds(delay1);
         bossObjects[counter].GetComponent<Rigidbody2D>().isKinematic = false;
         bossObjects[counter].GetComponent<BoxCollider2D>().isTrigger = false;
@@ -72,9 +74,24 @@ public class BossControl : MonoBehaviour
 
     IEnumerator BossAttackFromLeft(bool attack, float delay1, float delay2)
     {
-        bossObjects.Add(Instantiate(bossStar, new Vector2(-4f, Random.Range(0, 2)), Quaternion.identity));
+        bossObjects.Add(Instantiate(bossBirdToRight, new Vector2(-5f, Random.Range(-0.5f, 2.5f)), Quaternion.identity));
         bossObjects[counter].GetComponent<Rigidbody2D>().isKinematic = true;
-        bossObjects[counter].GetComponent<LineRenderer>().SetPosition(1, new Vector3(6, 0, 0));
+        bossObjects[counter].GetComponent<LineRenderer>().SetPosition(0, new Vector3(0, 0.25f, 0));
+        bossObjects[counter].GetComponent<LineRenderer>().SetPosition(1, new Vector3(25, 0.25f, 0));
+        yield return new WaitForSeconds(delay1);
+        bossObjects[counter].GetComponent<Rigidbody2D>().velocity = new Vector2(7, 0);
+        bossObjects[counter].GetComponent<BoxCollider2D>().isTrigger = false;
+        bossObjects[counter].GetComponent<LineRenderer>().enabled = false;
+        counter++;
+        yield return new WaitForSeconds(delay2);
+    }
+
+    IEnumerator BossAttackFromRight(bool attack, float delay1, float delay2)
+    {
+        bossObjects.Add(Instantiate(bossBirdToRight, new Vector2(5f, Random.Range(0.5f, 2.5f)), Quaternion.identity));
+        bossObjects[counter].GetComponent<Rigidbody2D>().isKinematic = true;
+        bossObjects[counter].GetComponent<LineRenderer>().SetPosition(0, new Vector3(0, 0.25f, 0));
+        bossObjects[counter].GetComponent<LineRenderer>().SetPosition(1, new Vector3(-25, 0.25f, 0));
         yield return new WaitForSeconds(delay1);
         bossObjects[counter].GetComponent<Rigidbody2D>().velocity = new Vector2(7, 0);
         bossObjects[counter].GetComponent<BoxCollider2D>().isTrigger = false;

@@ -11,7 +11,7 @@ public class LevelControl : MonoBehaviour
 
     private int stage = 1;
     private int score = 0;
-    private int bossFrequency = 2;
+    private int bossFrequency = 4;
 
     private void Awake()
     {
@@ -79,7 +79,7 @@ public class LevelControl : MonoBehaviour
     // called from gamecontrol Start function to update our score text when game starts.
     public void IncrementScoreText()
     {
-        GameControl.instance.TextCurrentScore.text = "Score " + score;
+        GameControl.instance.TextCurrentScore.text = score.ToString();
 
         // check to see if highscore playerpref is smaller then current score. If it is then update highscore.
         if (PlayerPrefs.GetInt("highscore", 0) < score)
@@ -88,9 +88,15 @@ public class LevelControl : MonoBehaviour
         }
     }
 
-    // called from gamecontrol Start function to reference what boss we are at.
-    public int BossCount()
+    // called from called from Gamecontrol Start function to reference what stage we are at.
+    public int StageReturn()
     {
-        return stage / bossFrequency;
+        return stage;
+    }
+
+    // called from called from Gamecontrol Start function .
+    public int BossFreqReturn()
+    {
+        return bossFrequency;
     }
 }

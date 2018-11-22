@@ -10,6 +10,9 @@ public class GameControl : MonoBehaviour
 
     public GameObject[] fish;
     public GameObject[] preview;
+    public SpriteRenderer[] stageIndicator;
+
+    public GameObject stageIndicatorGO;
     public GameObject gameOverLine;
     public GameObject panelGameOver;
     public GameObject panelGameWin;
@@ -18,11 +21,11 @@ public class GameControl : MonoBehaviour
     public GameObject sliderTimer;
     public GameObject platform;
 
-    // game variety variables;
+    // game variety variables
     public Vector2 platformPos;
     public float platformMass;
     public float platformAngularDrag;
-    public int objectiveNumber;
+    private int objectiveNumber;
 
     public Slider timer;
 
@@ -31,13 +34,13 @@ public class GameControl : MonoBehaviour
     public Text TextCurrentScore;
     public Text TextHighStageAndScore;
 
-    public float spawnHeight=3f;
+    public float spawnHeight;
 
     public bool noMoreObjective;
 
     private bool startTimer;   
     private int bossCounter;
-    private float stageClearDelay = 3f;
+    private float stageClearDelay = 2.5f;
     private float tempTime = 0;
 
     private List<GameObject> spawned = new List<GameObject>();
@@ -60,9 +63,16 @@ public class GameControl : MonoBehaviour
         platform.GetComponent<Rigidbody2D>().mass = platformMass;
         platform.GetComponent<Rigidbody2D>().angularDrag = platformAngularDrag;
 
+        objectiveNumber = LevelControl.instance.StageReturn();
+        StageControl(objectiveNumber);
+        int whatStage = LevelControl.instance.StageReturn()%LevelControl.instance.BossFreqReturn();
+        for (int i = 0; i < whatStage; i++)
+        {
+            stageIndicator[i].color = new Color32(226, 87, 76, 255);
+        }
         LevelControl.instance.IncrementStageText();
         LevelControl.instance.IncrementScoreText();
-        TextObjectiveNumber.text = objectiveNumber.ToString();
+        
         TextHighStageAndScore.text = "Stage " + PlayerPrefs.GetInt("highstage", 1) + " , " + PlayerPrefs.GetInt("highscore", 0);
 
         // creates a list of objectives that will be used in current stage.
@@ -70,8 +80,7 @@ public class GameControl : MonoBehaviour
         {
             spawned.Add(Instantiate(fish[Random.Range(0, fish.Length)], new Vector2(0, 10), Quaternion.identity));
             spawned[i].GetComponent<Rigidbody2D>().isKinematic = true;
-        }
-       
+        }    
 
         // if level is continued, start game without showing main menu.
         if (LevelControl.instance.stageContinued == true)
@@ -83,7 +92,11 @@ public class GameControl : MonoBehaviour
         // if boss stage, then initialise boss attack depending on what boss it is.
         if (LevelControl.instance.boss == true)
         {
-            bossCounter = LevelControl.instance.BossCount();
+            for (int i = 0; i < stageIndicator.Length; i++)
+            {
+                stageIndicator[i].color = new Color32(226, 87, 76, 255);
+            }            
+            bossCounter = LevelControl.instance.StageReturn()/ LevelControl.instance.BossFreqReturn();
 
             if (bossCounter == 1)
             {
@@ -182,12 +195,29 @@ public class GameControl : MonoBehaviour
                 preview[i].SetActive(true);
             }
         }
-
+        TextObjectiveNumber.text = objectiveNumber.ToString();
+        stageIndicatorGO.SetActive(true);
     }
 
     // returns list of spawned objectives. Used in Touch script.
     public List<GameObject> Spawned()
     {
         return spawned;
+    }
+
+    // changing difficulty of stages.
+    public void StageControl(int stage)
+    {
+       // objectiveNumber = stage + 4;
+
+        if (stage== 1)
+        {
+            objectiveNumber = 3;
+        }
+
+        if (stage < 5)
+        {
+            objectiveNumber = 3;
+        }
     }
 }

@@ -57,7 +57,7 @@ Rigidbody2D:
   m_Mass: 0.08
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 2.5
+  m_GravityScale: 2
   m_Material: {fileID: 6200000, guid: 89f9de65341664642b8fa28657a87e68, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -129,7 +129,7 @@ LineRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Positions:
-  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 1, z: 0}
   - {x: 0, y: -12, z: 1}
   m_Parameters:
     serializedVersion: 2
