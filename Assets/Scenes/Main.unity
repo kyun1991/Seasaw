@@ -1747,7 +1747,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a72db59f02a6f9f4386ceaa561816527, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1001 &947528465
+--- !u!1001 &888292952
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -1786,20 +1786,33 @@ Prefab:
       propertyPath: m_RootOrder
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 33758805874342744, guid: 8995044bde43d2a4ca422709d4b307fb,
+        type: 2}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 33296797265875872, guid: 8995044bde43d2a4ca422709d4b307fb,
         type: 2}
       propertyPath: m_Mesh
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114685139838387254, guid: 8995044bde43d2a4ca422709d4b307fb,
+        type: 2}
+      propertyPath: dirty
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1213218882238378, guid: 8995044bde43d2a4ca422709d4b307fb, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 33580985335831036, guid: 8995044bde43d2a4ca422709d4b307fb,
         type: 2}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 33758805874342744, guid: 8995044bde43d2a4ca422709d4b307fb,
-        type: 2}
-      propertyPath: m_Mesh
-      value: 
+    - target: {fileID: 1210554812423884, guid: 8995044bde43d2a4ca422709d4b307fb, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8995044bde43d2a4ca422709d4b307fb, type: 2}
