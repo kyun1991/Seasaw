@@ -18,6 +18,7 @@ public class GameControl : MonoBehaviour
     public GameObject panelGameWin;
     public GameObject canvasInGame;
     public GameObject canvasMain;
+    public GameObject title;
     public GameObject sliderTimer;
     public GameObject platform;
     public GameObject bossStageAnimation;
@@ -245,6 +246,7 @@ public class GameControl : MonoBehaviour
     public void StartGame()
     {
         canvasMain.SetActive(false);
+        title.SetActive(false);
         canvasInGame.SetActive(true);
         TextObjectiveNumber.text = objectiveNumber.ToString();
         stageIndicatorGO.SetActive(true);
@@ -309,7 +311,6 @@ public class GameControl : MonoBehaviour
         {
             yield return StartCoroutine(GetComponent<BossControl>().BossFive());
         }
-
     }
 
     // if startSpawning is true, sets first object and first preview object into position.

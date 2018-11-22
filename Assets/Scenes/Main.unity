@@ -273,7 +273,6 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
-  - {fileID: 570890719}
   - {fileID: 1780989874}
   - {fileID: 1624526847}
   m_Father: {fileID: 0}
@@ -496,6 +495,7 @@ MonoBehaviour:
   panelGameWin: {fileID: 298757553}
   canvasInGame: {fileID: 1557170332}
   canvasMain: {fileID: 26258674}
+  title: {fileID: 570890718}
   sliderTimer: {fileID: 1560869159}
   platform: {fileID: 1086078211}
   bossStageAnimation: {fileID: 1318692027468208, guid: 8995044bde43d2a4ca422709d4b307fb,
@@ -1259,15 +1259,15 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 570890718}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -539.9042, y: -960.1705, z: 0}
-  m_LocalScale: {x: 3.0676372, y: 3.0676372, z: 3.0676372}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.005237, y: 1.005237, z: 1.005237}
   m_Children:
   - {fileID: 1081716436}
   - {fileID: 841239243}
   - {fileID: 961333837}
   - {fileID: 1946648017}
-  m_Father: {fileID: 26258678}
-  m_RootOrder: 0
+  m_Father: {fileID: 1292472882}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &576360949
 GameObject:
@@ -2402,6 +2402,7 @@ Transform:
   - {fileID: 767691055}
   - {fileID: 1669864812}
   - {fileID: 1231134470}
+  - {fileID: 570890719}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3131,7 +3132,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 26258678}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
@@ -3318,7 +3319,7 @@ RectTransform:
   m_Children:
   - {fileID: 2014716677}
   m_Father: {fileID: 26258678}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
