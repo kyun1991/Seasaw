@@ -21,6 +21,8 @@ public class GameControl : MonoBehaviour
     public GameObject sliderTimer;
     public GameObject platform;
     public GameObject bossStageAnimation;
+    public GameObject imageStageClear;
+    public GameObject imageStageGreat;
 
     // game variety variables
     public Vector2 platformPos;
@@ -185,6 +187,17 @@ public class GameControl : MonoBehaviour
                 gameOverLine.SetActive(false);
                 sliderTimer.SetActive(false);
                 panelGameWin.SetActive(true);
+
+                // stageReturn -1 because stage is incremented before timer becomes zero.
+                if((LevelControl.instance.StageReturn()-1) % LevelControl.instance.BossFreqReturn() == 0)
+                {
+                    imageStageGreat.SetActive(true);
+                }
+                else
+                {
+                    imageStageClear.SetActive(true);
+                }                       
+                StartCoroutine(NextStage(1f));
             }
         }
     }
@@ -249,7 +262,7 @@ public class GameControl : MonoBehaviour
     {
         if (stage < 4)
         {
-            objectiveNumber = 10;
+            objectiveNumber = 4;
             stageClearDelay = 1.6f;
         }
         if (4 < stage && stage < 8)
@@ -327,5 +340,12 @@ public class GameControl : MonoBehaviour
                 whaleIndex = i;
             }
         }
+    }
+
+    // starts next stage after short delay.
+    IEnumerator NextStage(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        SceneManager.LoadScene(0);
     }
 }
