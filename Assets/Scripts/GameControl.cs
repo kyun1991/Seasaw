@@ -45,6 +45,9 @@ public class GameControl : MonoBehaviour
     private bool startTimer;
     private int bossCounter;
     private int currentStage;
+    private int whaleIndex;
+    private int whaleCount = 0;
+
     private float stageClearDelay;
     private float tempTime = 0;
 
@@ -130,16 +133,34 @@ public class GameControl : MonoBehaviour
                 objectiveNumber = 5;
                 stageClearDelay = 2.5f;
             }
-        
 
-            StartCoroutine(StartBossAttack(1.5f,bossCounter));
+            StartCoroutine(StartBossAttack(1.5f, bossCounter));
         }
+
+        FishIndex();
+
         // creates a list of objectives that will be used in current stage.
         for (int i = 0; i < objectiveNumber; i++)
         {
-            spawned.Add(Instantiate(fish[Random.Range(0, fish.Length)], new Vector2(0, 10), Quaternion.identity));
+            int fishSpawnIndex = Random.Range(0, fish.Length);
+
+            // prevents more than 2 whales spawning
+            if (fishSpawnIndex == whaleIndex)
+            {
+                whaleCount++;
+                if (whaleCount > 2)
+                {
+                    while (fishSpawnIndex == whaleIndex)
+                    {
+                        fishSpawnIndex = Random.Range(0, fish.Length);
+                    }
+                }
+            }
+
+            spawned.Add(Instantiate(fish[fishSpawnIndex], new Vector2(0, 10), Quaternion.identity));
             spawned[i].GetComponent<Rigidbody2D>().isKinematic = true;
         }
+
         // if level is continued, start game without showing main menu.
         if (LevelControl.instance.stageContinued == true)
         {
@@ -292,6 +313,18 @@ public class GameControl : MonoBehaviour
                 {
                     preview[i].SetActive(true);
                 }
+            }
+        }
+    }
+
+    // checks index number for whale.
+    public void FishIndex()
+    {
+        for (int i = 0; i < fish.Length; i++)
+        {
+            if (fish[i].tag.Contains("whale"))
+            {
+                whaleIndex = i;
             }
         }
     }

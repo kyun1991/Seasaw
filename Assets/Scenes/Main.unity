@@ -501,8 +501,8 @@ MonoBehaviour:
   bossStageAnimation: {fileID: 1318692027468208, guid: 8995044bde43d2a4ca422709d4b307fb,
     type: 2}
   platformPos: {x: 0, y: 0}
-  platformMass: 3
-  platformAngularDrag: 10
+  platformMass: 5
+  platformAngularDrag: 5
   timer: {fileID: 1560869161}
   TextObjectiveNumber: {fileID: 136507144}
   TextCurrentStage: {fileID: 792940847}
