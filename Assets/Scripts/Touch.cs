@@ -8,8 +8,7 @@ public class Touch : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     private bool dragging;
     private List<GameObject> spawned = new List<GameObject>();
     private int counter = 0;
-    // private int tracker = 0;
-    private float clickDelay = 0.25f;
+    private float clickDelay = 0.2f;
 
     // initialise list.
     private void Start()

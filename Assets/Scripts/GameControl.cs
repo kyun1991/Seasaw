@@ -45,7 +45,7 @@ public class GameControl : MonoBehaviour
     private bool startTimer;
     private int bossCounter;
     private int currentStage;
-    private float stageClearDelay = 2.5f;
+    private float stageClearDelay;
     private float tempTime = 0;
 
     private List<GameObject> spawned = new List<GameObject>();
@@ -103,24 +103,33 @@ public class GameControl : MonoBehaviour
             if (bossCounter == 1)
             {
                 objectiveNumber = 5;
+                stageClearDelay = 1.6f;
             }
             else if (bossCounter == 2)
             {
                 objectiveNumber = 5;
+                stageClearDelay = 1.9f;
             }
             else if (bossCounter == 3)
             {
                 objectiveNumber = 5;
+                stageClearDelay = 2.2f;
             }
             else if (bossCounter == 4)
             {
                 objectiveNumber = 5;
+                stageClearDelay = 2.5f;
             }
             else if (bossCounter == 5)
             {
                 objectiveNumber = 5;
+                stageClearDelay = 2.5f;
             }
-            else { objectiveNumber = 5; }
+            else
+            {
+                objectiveNumber = 5;
+                stageClearDelay = 2.5f;
+            }
         
 
             StartCoroutine(StartBossAttack(1.5f,bossCounter));
@@ -219,27 +228,29 @@ public class GameControl : MonoBehaviour
     {
         if (stage < 4)
         {
-            objectiveNumber = 4;
+            objectiveNumber = 10;
+            stageClearDelay = 1.6f;
         }
         if (4 < stage && stage < 8)
         {
             objectiveNumber = 6;
+            stageClearDelay = 1.9f;
         }
         if (8 < stage && stage < 12)
         {
             objectiveNumber = 8;
+            stageClearDelay = 2.2f;
         }
         if (12 < stage && stage % LevelControl.instance.BossFreqReturn() != 0)
         {
             objectiveNumber = 10;
+            stageClearDelay = 2.5f;
         }
     }
 
     // brief delay to show boss stage animation before starting boss attack.
     IEnumerator StartBossAttack(float delay, int bossCounter)
     {
-
-
         yield return new WaitForSeconds(delay);
         startSpawning = true;
         CheckStartSpawning();
