@@ -42,7 +42,10 @@ public class GameControl : MonoBehaviour
     public Text TextObjectiveNumber;
     public Text TextCurrentStage;
     public Text TextCurrentScore;
-    public Text TextHighStageAndScore;
+    public Text TextHighStage;
+    public Text TextHighScore;
+    public Text deathPanelStage;
+    public Text deathPanelScore;
 
     public float spawnHeight;
 
@@ -52,6 +55,7 @@ public class GameControl : MonoBehaviour
     public bool startSpawning;
 
     private bool startTimer;
+    private bool canIncrementStage;
     private int bossCounter;
     private int currentStage;
     private int whaleIndex;
@@ -77,9 +81,6 @@ public class GameControl : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        platform.GetComponent<Rigidbody2D>().mass = platformMass;
-        platform.GetComponent<Rigidbody2D>().angularDrag = platformAngularDrag;
-
         if (PlayerPrefs.GetInt("sound", 1) == 1)
         {
             UnMute();
@@ -103,10 +104,35 @@ public class GameControl : MonoBehaviour
             stageIndicator[i].color = new Color32(226, 87, 76, 255);
         }
 
+        // setting platform angular velocity according to stage.
+        if (currentStage > 0 && currentStage < 5)
+        {
+            platformAngularDrag = 4f;
+        }
+
+        else if (currentStage > 4 && currentStage < 9)
+        {
+            platformAngularDrag = 6f;
+        }
+
+        else if (currentStage > 8 && currentStage < 13)
+        {
+            platformAngularDrag = 8f;
+        }
+
+        else
+        {
+            platformAngularDrag = 10f;
+        }
+
+        platform.GetComponent<Rigidbody2D>().mass = platformMass;
+        platform.GetComponent<Rigidbody2D>().angularDrag = platformAngularDrag;
+
         LevelControl.instance.IncrementStageText();
         LevelControl.instance.IncrementScoreText();
 
-        TextHighStageAndScore.text = "Stage " + PlayerPrefs.GetInt("highstage", 1) + " , " + PlayerPrefs.GetInt("highscore", 0);
+        TextHighStage.text = "Stage " + PlayerPrefs.GetInt("highstage", 1);
+        TextHighScore.text = PlayerPrefs.GetInt("highscore", 0).ToString();
 
         // if boss stage, then initialise boss attack depending on what boss it is.
         if (LevelControl.instance.boss == true)
@@ -123,7 +149,7 @@ public class GameControl : MonoBehaviour
             bossCounter = LevelControl.instance.StageReturn() / LevelControl.instance.BossFreqReturn();
             if (bossCounter == 1)
             {
-                objectiveNumber = 6;
+                objectiveNumber = 4;
                 stageClearDelay = 1.6f;
             }
             else if (bossCounter == 2)
@@ -146,7 +172,7 @@ public class GameControl : MonoBehaviour
                 objectiveNumber = 6;
                 stageClearDelay = 2.5f;
             }
-                 StartCoroutine(StartBossAttack(1.5f, bossCounter));
+            StartCoroutine(StartBossAttack(1.5f, bossCounter));
         }
 
         FishIndex();
@@ -198,17 +224,25 @@ public class GameControl : MonoBehaviour
                 sliderTimer.SetActive(false);
                 panelGameWin.SetActive(true);
 
-                // stageReturn -1 because stage is incremented before timer becomes zero.
-                if((LevelControl.instance.StageReturn()-1) % LevelControl.instance.BossFreqReturn() == 0)
+
+                if (!canIncrementStage)
                 {
-                    imageStageGreat.SetActive(true);
-                    StartCoroutine(NextStage(1.1f));
+
+                    // checking whether to show CLEAR for normal stage and GREAT for boss stage.
+                    if (LevelControl.instance.StageReturn() % LevelControl.instance.BossFreqReturn() == 0)
+                    {
+                        imageStageGreat.SetActive(true);
+                        StartCoroutine(NextStage(1.1f));
+                    }
+                    else
+                    {
+                        imageStageClear.SetActive(true);
+                        StartCoroutine(NextStage(0.8f));
+                    }
+
+                    LevelControl.instance.IncrementStage();
+                    canIncrementStage = true;
                 }
-                else
-                {
-                    imageStageClear.SetActive(true);
-                    StartCoroutine(NextStage(0.8f));
-                }                                   
             }
         }
     }
@@ -226,7 +260,6 @@ public class GameControl : MonoBehaviour
             noMoreObjective = true;
             startTimer = true;
             sliderTimer.SetActive(true);
-            LevelControl.instance.IncrementStage();
         }
     }
 
@@ -235,6 +268,7 @@ public class GameControl : MonoBehaviour
     {
         startTimer = false;
         noMoreObjective = true;
+        deathPanelStage.text = "Stage "+LevelControl.instance.StageReturn();
         StartCoroutine(DeathTimer(0.5f));
     }
 
@@ -243,6 +277,9 @@ public class GameControl : MonoBehaviour
     {
         LevelControl.instance.StageReset();
         yield return new WaitForSeconds(delay);
+        stageIndicatorGO.SetActive(false);
+        TextCurrentScore.text = "";
+        TextCurrentStage.text = "";
         panelGameOver.SetActive(true);
     }
 
@@ -274,7 +311,7 @@ public class GameControl : MonoBehaviour
     {
         if (stage < 4)
         {
-            objectiveNumber = 10;
+            objectiveNumber = 4;
             stageClearDelay = 1.6f;
         }
         if (4 < stage && stage < 8)
@@ -303,7 +340,7 @@ public class GameControl : MonoBehaviour
 
         if (bossCounter == 1)
         {
-            yield return StartCoroutine(GetComponent<BossControl>().BossFive());
+            yield return StartCoroutine(GetComponent<BossControl>().BossOne());
         }
         else if (bossCounter == 2)
         {
@@ -317,7 +354,7 @@ public class GameControl : MonoBehaviour
         {
             yield return StartCoroutine(GetComponent<BossControl>().BossFour());
         }
-        else 
+        else
         {
             yield return StartCoroutine(GetComponent<BossControl>().BossFive());
         }
@@ -367,7 +404,7 @@ public class GameControl : MonoBehaviour
         Drop.volume = 0;
         buttonMute.SetActive(false);
         buttonUnmute.SetActive(true);
-        PlayerPrefs.SetInt("sound",0);
+        PlayerPrefs.SetInt("sound", 0);
     }
 
     // UnMutes audio source

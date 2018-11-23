@@ -80,6 +80,7 @@ public class LevelControl : MonoBehaviour
     public void IncrementScoreText()
     {
         GameControl.instance.TextCurrentScore.text = score.ToString();
+        GameControl.instance.deathPanelScore.text = score.ToString();
 
         // check to see if highscore playerpref is smaller then current score. If it is then update highscore.
         if (PlayerPrefs.GetInt("highscore", 0) < score)
