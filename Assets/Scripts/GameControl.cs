@@ -30,6 +30,7 @@ public class GameControl : MonoBehaviour
     //Audio objects
     public AudioSource Splash;
     public AudioSource Drop;
+    public AudioSource Clear;
 
     // game variety variables
     public Vector2 platformPos;
@@ -233,11 +234,13 @@ public class GameControl : MonoBehaviour
                     {
                         imageStageGreat.SetActive(true);
                         StartCoroutine(NextStage(1.1f));
+                        Clear.Play();
                     }
                     else
                     {
                         imageStageClear.SetActive(true);
                         StartCoroutine(NextStage(0.8f));
+                        Clear.Play();
                     }
 
                     LevelControl.instance.IncrementStage();
