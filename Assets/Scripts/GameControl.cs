@@ -123,7 +123,7 @@ public class GameControl : MonoBehaviour
             bossCounter = LevelControl.instance.StageReturn() / LevelControl.instance.BossFreqReturn();
             if (bossCounter == 1)
             {
-                objectiveNumber = 4;
+                objectiveNumber = 6;
                 stageClearDelay = 1.6f;
             }
             else if (bossCounter == 2)
@@ -274,7 +274,7 @@ public class GameControl : MonoBehaviour
     {
         if (stage < 4)
         {
-            objectiveNumber = 4;
+            objectiveNumber = 10;
             stageClearDelay = 1.6f;
         }
         if (4 < stage && stage < 8)
@@ -303,7 +303,7 @@ public class GameControl : MonoBehaviour
 
         if (bossCounter == 1)
         {
-            yield return StartCoroutine(GetComponent<BossControl>().BossOne());
+            yield return StartCoroutine(GetComponent<BossControl>().BossFive());
         }
         else if (bossCounter == 2)
         {

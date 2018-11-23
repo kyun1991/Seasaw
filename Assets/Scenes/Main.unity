@@ -509,7 +509,7 @@ MonoBehaviour:
   Splash: {fileID: 195904667}
   Drop: {fileID: 1458732439}
   platformPos: {x: 0, y: 0}
-  platformMass: 5
+  platformMass: 3
   platformAngularDrag: 5
   timer: {fileID: 1560869161}
   TextObjectiveNumber: {fileID: 136507144}
@@ -2716,7 +2716,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1292472882
 Transform:
   m_ObjectHideFlags: 0
