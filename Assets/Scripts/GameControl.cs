@@ -123,7 +123,7 @@ public class GameControl : MonoBehaviour
             bossCounter = LevelControl.instance.StageReturn() / LevelControl.instance.BossFreqReturn();
             if (bossCounter == 1)
             {
-                objectiveNumber = 5;
+                objectiveNumber = 4;
                 stageClearDelay = 1.6f;
             }
             else if (bossCounter == 2)
@@ -138,21 +138,15 @@ public class GameControl : MonoBehaviour
             }
             else if (bossCounter == 4)
             {
-                objectiveNumber = 5;
-                stageClearDelay = 2.5f;
-            }
-            else if (bossCounter == 5)
-            {
-                objectiveNumber = 5;
+                objectiveNumber = 6;
                 stageClearDelay = 2.5f;
             }
             else
             {
-                objectiveNumber = 5;
+                objectiveNumber = 6;
                 stageClearDelay = 2.5f;
             }
-
-            StartCoroutine(StartBossAttack(1.5f, bossCounter));
+                 StartCoroutine(StartBossAttack(1.5f, bossCounter));
         }
 
         FishIndex();
@@ -322,7 +316,7 @@ public class GameControl : MonoBehaviour
         {
             yield return StartCoroutine(GetComponent<BossControl>().BossFour());
         }
-        else if (bossCounter == 5)
+        else 
         {
             yield return StartCoroutine(GetComponent<BossControl>().BossFive());
         }
