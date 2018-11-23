@@ -202,12 +202,13 @@ public class GameControl : MonoBehaviour
                 if((LevelControl.instance.StageReturn()-1) % LevelControl.instance.BossFreqReturn() == 0)
                 {
                     imageStageGreat.SetActive(true);
+                    StartCoroutine(NextStage(1.1f));
                 }
                 else
                 {
                     imageStageClear.SetActive(true);
-                }                       
-                StartCoroutine(NextStage(1f));
+                    StartCoroutine(NextStage(0.8f));
+                }                                   
             }
         }
     }

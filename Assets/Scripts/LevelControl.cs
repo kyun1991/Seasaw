@@ -11,7 +11,7 @@ public class LevelControl : MonoBehaviour
 
     private int stage = 1;
     private int score = 0;
-    private int bossFrequency = 4;
+    private int bossFrequency =4;
 
     private void Awake()
     {
