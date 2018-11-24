@@ -14,6 +14,7 @@ public class GameControl : MonoBehaviour
 
     public GameObject stageIndicatorGO;
     public GameObject fishCount;
+    public GameObject previewBlank;
     public GameObject platform;
     public GameObject gameOverLine;
     public GameObject panelGameOver;
@@ -298,6 +299,7 @@ public class GameControl : MonoBehaviour
         TextObjectiveNumber.text = objectiveNumber.ToString();
         stageIndicatorGO.SetActive(true);
         fishCount.SetActive(true);
+        previewBlank.SetActive(true);
         CheckStartSpawning();
     }
 
