@@ -14,7 +14,7 @@ public class GameControl : MonoBehaviour
 
     public GameObject stageIndicatorGO;
     public GameObject fishCount;
-    public GameObject previewBlank;
+    public GameObject objectiveNumberTextGO;
     public GameObject platform;
     public GameObject gameOverLine;
     public GameObject panelGameOver;
@@ -253,6 +253,10 @@ public class GameControl : MonoBehaviour
     {
         objectiveNumber--;
         TextObjectiveNumber.text = ( objectiveNumber-1).ToString();
+        if(objectiveNumber==1){
+            objectiveNumberTextGO.SetActive(false);
+            fishCount.SetActive(false);
+        }
         LevelControl.instance.IncrementScore();
 
         // if objective = 0 , stop spawning objective on click, and start countdown for stageclear.
@@ -296,10 +300,7 @@ public class GameControl : MonoBehaviour
         canvasMain.SetActive(false);
         title.SetActive(false);
         canvasInGame.SetActive(true);
-        TextObjectiveNumber.text = (objectiveNumber-1).ToString();
         stageIndicatorGO.SetActive(true);
-        fishCount.SetActive(true);
-        previewBlank.SetActive(true);
         CheckStartSpawning();
     }
 
@@ -369,6 +370,9 @@ public class GameControl : MonoBehaviour
         if (startSpawning == true)
         {
             tracker = 0;
+
+            TextObjectiveNumber.text = (objectiveNumber - 1).ToString();
+            fishCount.SetActive(true);
 
             spawned[0].transform.position = new Vector2(0, spawnHeight);
             for (int i = 0; i < preview.Length; i++)
