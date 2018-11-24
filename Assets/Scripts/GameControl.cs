@@ -13,8 +13,8 @@ public class GameControl : MonoBehaviour
     public SpriteRenderer[] stageIndicator;
 
     public GameObject stageIndicatorGO;
-    public GameObject fishCount;
-    public GameObject objectiveNumberTextGO;
+    public GameObject stackCount;
+  //  public GameObject objectiveNumberTextGO;
     public GameObject platform;
     public GameObject gameOverLine;
     public GameObject panelGameOver;
@@ -252,11 +252,8 @@ public class GameControl : MonoBehaviour
     public void IncrementObjective()
     {
         objectiveNumber--;
-        TextObjectiveNumber.text = ( objectiveNumber-1).ToString();
-        if(objectiveNumber==1){
-            objectiveNumberTextGO.SetActive(false);
-            fishCount.SetActive(false);
-        }
+        TextObjectiveNumber.text = objectiveNumber.ToString();
+   
         LevelControl.instance.IncrementScore();
 
         // if objective = 0 , stop spawning objective on click, and start countdown for stageclear.
@@ -371,8 +368,8 @@ public class GameControl : MonoBehaviour
         {
             tracker = 0;
 
-            TextObjectiveNumber.text = (objectiveNumber - 1).ToString();
-            fishCount.SetActive(true);
+            TextObjectiveNumber.text = objectiveNumber.ToString();
+            stackCount.SetActive(true);
 
             spawned[0].transform.position = new Vector2(0, spawnHeight);
             for (int i = 0; i < preview.Length; i++)
@@ -409,6 +406,7 @@ public class GameControl : MonoBehaviour
     {
         Splash.volume = 0;
         Drop.volume = 0;
+        Clear.volume = 0;
         buttonMute.SetActive(false);
         buttonUnmute.SetActive(true);
         PlayerPrefs.SetInt("sound", 0);
@@ -417,8 +415,9 @@ public class GameControl : MonoBehaviour
     // UnMutes audio source
     public void UnMute()
     {
-        Splash.volume = 0.7f;
-        Drop.volume = 0.5f;
+        Splash.volume = 1f;
+        Drop.volume = 1f;
+        Clear.volume = 1f;
         buttonMute.SetActive(true);
         buttonUnmute.SetActive(false);
         PlayerPrefs.SetInt("sound", 1);
