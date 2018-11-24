@@ -292,8 +292,8 @@ MonoBehaviour:
   isUGUI: 0
   debugDraw: 0
   animationName: guide
-  _playTimes: 1
-  _timeScale: 1.2
+  _playTimes: 3
+  _timeScale: 2
   _sortingMode: 0
   _sortingLayerName: Default
   _sortingOrder: 0

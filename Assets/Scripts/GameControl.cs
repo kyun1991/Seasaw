@@ -14,7 +14,7 @@ public class GameControl : MonoBehaviour
 
     public GameObject stageIndicatorGO;
     public GameObject stackCount;
-  //  public GameObject objectiveNumberTextGO;
+    public GameObject guide;
     public GameObject platform;
     public GameObject gameOverLine;
     public GameObject panelGameOver;
@@ -206,6 +206,8 @@ public class GameControl : MonoBehaviour
         {
             StartGame();
         }
+
+
     }
 
     private void Update()
@@ -378,6 +380,11 @@ public class GameControl : MonoBehaviour
                 {
                     preview[i].SetActive(true);
                 }
+            }
+
+            if (PlayerPrefs.GetInt("firsttime", 0) == 0)
+            {
+                GameObject temp = Instantiate(guide, new Vector2(0, 1.5f), Quaternion.identity);
             }
         }
     }
