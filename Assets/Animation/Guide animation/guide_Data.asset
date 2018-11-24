@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Name: guide_Data
   m_EditorClassIdentifier: 
   dataName: guide
-  dragonBonesJSON: {fileID: 4900000, guid: 3ca3965fa88c25a48961327009e3f4f0, type: 3}
+  dragonBonesJSON: {fileID: 4900000, guid: 69c9275241b99a54487afc557fac2d5d, type: 3}
   textureAtlas:
-  - textureAtlasJSON: {fileID: 4900000, guid: b08a9a07b21a4924a80050c5fa62910b, type: 3}
-    texture: {fileID: 2800000, guid: 0433dce91b6f1304685105238356049e, type: 3}
-    material: {fileID: 2100000, guid: 51a6db1eaf299da48added46efb4f43b, type: 2}
+  - textureAtlasJSON: {fileID: 4900000, guid: 95d3354c16b73b34a94c9ca384314ff4, type: 3}
+    texture: {fileID: 2800000, guid: 597957497fe178b48bdcaa06ae2d26f0, type: 3}
+    material: {fileID: 2100000, guid: e1190d880b4c79346bf6bdf29f13ab48, type: 2}
     uiMaterial: {fileID: 0}
