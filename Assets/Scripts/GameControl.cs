@@ -13,6 +13,8 @@ public class GameControl : MonoBehaviour
     public SpriteRenderer[] stageIndicator;
 
     public GameObject stageIndicatorGO;
+    public GameObject fishCount;
+    public GameObject platform;
     public GameObject gameOverLine;
     public GameObject panelGameOver;
     public GameObject panelGameWin;
@@ -20,7 +22,6 @@ public class GameControl : MonoBehaviour
     public GameObject canvasMain;
     public GameObject title;
     public GameObject sliderTimer;
-    public GameObject platform;
     public GameObject bossStageAnimation;
     public GameObject imageStageClear;
     public GameObject imageStageGreat;
@@ -33,7 +34,6 @@ public class GameControl : MonoBehaviour
     public AudioSource Clear;
 
     // game variety variables
-    public Vector2 platformPos;
     public float platformMass;
     public float platformAngularDrag;
     private int objectiveNumber;
@@ -205,9 +205,6 @@ public class GameControl : MonoBehaviour
         {
             StartGame();
         }
-        // adjust platform anchor and objective text to new position.
-        platform.GetComponent<HingeJoint2D>().anchor = platformPos;
-        platform.GetComponentInChildren<RectTransform>().localPosition = platformPos;
     }
 
     private void Update()
@@ -300,6 +297,7 @@ public class GameControl : MonoBehaviour
         canvasInGame.SetActive(true);
         TextObjectiveNumber.text = objectiveNumber.ToString();
         stageIndicatorGO.SetActive(true);
+        fishCount.SetActive(true);
         CheckStartSpawning();
     }
 
