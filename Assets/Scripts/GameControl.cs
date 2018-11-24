@@ -252,7 +252,7 @@ public class GameControl : MonoBehaviour
     public void IncrementObjective()
     {
         objectiveNumber--;
-        TextObjectiveNumber.text = objectiveNumber.ToString();
+        TextObjectiveNumber.text = ( objectiveNumber-1).ToString();
         LevelControl.instance.IncrementScore();
 
         // if objective = 0 , stop spawning objective on click, and start countdown for stageclear.
@@ -296,7 +296,7 @@ public class GameControl : MonoBehaviour
         canvasMain.SetActive(false);
         title.SetActive(false);
         canvasInGame.SetActive(true);
-        TextObjectiveNumber.text = objectiveNumber.ToString();
+        TextObjectiveNumber.text = (objectiveNumber-1).ToString();
         stageIndicatorGO.SetActive(true);
         fishCount.SetActive(true);
         previewBlank.SetActive(true);
