@@ -387,7 +387,7 @@ public class GameControl : MonoBehaviour
             if (PlayerPrefs.GetInt("firsttime", 0) == 0)
             {
                 preventTouchButton.SetActive(true);
-                Instantiate(guide, new Vector2(0, 1f), Quaternion.identity);
+                Instantiate(guide, new Vector2(-0.58f, 1f), Quaternion.identity);
                 StartCoroutine(DelayTouch(2f));
             }
         }
