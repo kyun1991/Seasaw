@@ -15,6 +15,7 @@ public class GameControl : MonoBehaviour
     public GameObject stageIndicatorGO;
     public GameObject stackCount;
     public GameObject guide;
+    public GameObject preventTouchButton;
     public GameObject platform;
     public GameObject gameOverLine;
     public GameObject panelGameOver;
@@ -382,11 +383,21 @@ public class GameControl : MonoBehaviour
                 }
             }
 
+            // if this is first time for player, show guide with hand movement.
             if (PlayerPrefs.GetInt("firsttime", 0) == 0)
             {
-                GameObject temp = Instantiate(guide, new Vector2(0, 1.5f), Quaternion.identity);
+                preventTouchButton.SetActive(true);
+                Instantiate(guide, new Vector2(0, 1f), Quaternion.identity);
+                StartCoroutine(DelayTouch(2f));
             }
         }
+    }
+
+    IEnumerator DelayTouch(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        preventTouchButton.SetActive(false);
+        PlayerPrefs.SetInt("firsttime", 1);
     }
 
     // checks index number for whale.
