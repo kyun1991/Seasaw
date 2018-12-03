@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using GameAnalyticsSDK;
 
 public class GameControl : MonoBehaviour
 {
@@ -29,6 +30,7 @@ public class GameControl : MonoBehaviour
     public GameObject imageStageGreat;
     public GameObject buttonUnmute;
     public GameObject buttonMute;
+    public GameObject GA;
 
     //Audio objects
     public AudioSource Splash;
@@ -84,6 +86,7 @@ public class GameControl : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        Application.targetFrameRate = 300;
         if (PlayerPrefs.GetInt("sound", 1) == 1)
         {
             UnMute();
@@ -208,7 +211,14 @@ public class GameControl : MonoBehaviour
             StartGame();
         }
 
-
+        GameObject analytics = GameObject.Find("/GameAnalytics");
+        if (!analytics)
+        {
+            analytics = Instantiate(GA);
+            analytics.name = "GameAnalytics";
+            GameAnalytics.Initialize();
+            GameAnalytics.NewProgressionEvent(GAProgressionStatus.Start, "game");
+        }
     }
 
     private void Update()
@@ -271,6 +281,7 @@ public class GameControl : MonoBehaviour
     // called from GameOverLine script when objective touches water.
     public void GameOver()
     {
+        GameAnalytics.NewProgressionEvent(GAProgressionStatus.Complete, "game", LevelControl.instance.GetScore());
         startTimer = false;
         noMoreObjective = true;
         deathPanelStage.text = "Stage "+LevelControl.instance.StageReturn();
@@ -291,12 +302,14 @@ public class GameControl : MonoBehaviour
     // load scene when ButtonPlay is clicked.
     public void ButtonPlay()
     {
+        GameAnalytics.NewProgressionEvent(GAProgressionStatus.Start, "game");
         SceneManager.LoadScene(0);
     }
 
     // activiate/deactivate canvas when game starts.
     public void StartGame()
     {
+        
         canvasMain.SetActive(false);
         title.SetActive(false);
         canvasInGame.SetActive(true);

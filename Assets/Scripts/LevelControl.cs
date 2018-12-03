@@ -100,4 +100,8 @@ public class LevelControl : MonoBehaviour
     {
         return bossFrequency;
     }
+
+    public int GetScore(){
+        return score;
+    }
 }
