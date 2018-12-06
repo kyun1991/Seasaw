@@ -30,7 +30,6 @@ public class GameControl : MonoBehaviour
     public GameObject imageStageGreat;
     public GameObject buttonUnmute;
     public GameObject buttonMute;
-    public GameObject GA;
 
     //Audio objects
     public AudioSource Splash;
@@ -211,14 +210,9 @@ public class GameControl : MonoBehaviour
             StartGame();
         }
 
-        GameObject analytics = GameObject.Find("/GameAnalytics");
-        if (!analytics)
-        {
-            analytics = Instantiate(GA);
-            analytics.name = "GameAnalytics";
-            GameAnalytics.Initialize();
-            GameAnalytics.NewProgressionEvent(GAProgressionStatus.Start, "game");
-        }
+
+        GameAnalytics.Initialize();
+        GameAnalytics.NewProgressionEvent(GAProgressionStatus.Start, "game");
     }
 
     private void Update()

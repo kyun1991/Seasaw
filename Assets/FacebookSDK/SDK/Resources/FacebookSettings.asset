@@ -15,9 +15,9 @@ MonoBehaviour:
   clientTokens:
   - 
   appIds:
-  - 360997507969232
+  - 637508090017675
   appLabels:
-  - SeaSaw
+  - Seasaw
   cookie: 1
   logging: 1
   status: 1
